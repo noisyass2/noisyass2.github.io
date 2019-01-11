@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<style>
+.w100{
+    border: 1px solid gray;
+    margin:0px;
+    padding: 0px;
+    border-spacing: 0px;
+    width:100%;
+    height: 50px;
+    display: inline-block;
+}
+
+.w25 {
+    border: 1px solid gray;
+    margin:0px;
+    padding: 0px;
+    border-spacing: 0px;
+    width:25%;
+    height: 50px;
+    display: inline-block;
+}
+
+.w50 {
+    border: 1px solid gray;
+    margin:0px;
+    padding: 0px;
+    border-spacing: 0px;
+    width:50%;
+    height: 50px;
+    display: inline-block;
+}
+
+.item-a {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 2;
+  background-color:red;
+}
+
+.container
+{
+    background-image: url("http://nerdreactor.com/wp-content/uploads/2015/06/SFV_vs_screen-800x415.jpg") ; 
+    background-size: 100%;
+    background-repeat: no-repeat;
+    color:white; 
+    height: 415px;
+    width: 800px;
+}
+
+.right{
+    text-align: right;
+}
+
+.big{
+    font-size: 50pt;
+}
+</style>
+</head>
+<body>
+    
+    <!-- <div class="w100">
+        <div class="w25">
+
+        </div>
+        <div class="w25">
+
+        </div>
+        <div class="w50"></div>
+    </div>
+    <div class="w100">
+        <div class="40"></div>
+        <div class="20"></div>
+        <div class="40"></div>
+    </div>
+    <div class="w100">
+        <div class="w50"></div>
+        <div class="w25"></div>
+        <div class="w25"></div>
+    </div> -->
+<!-- 
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-3">
+                <h1 class="ch1Name"></h1>
+            </div>
+            <div class="col-3">
+                <div class="row"><div class="col">CURRENT : <span class="ch1curr"></span></div></div>
+                <div class="row"><div class="col">TARGET : <span class="ch1target"></span></div></div>
+            </div>
+            <div class="col-6">
+                
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-5"><span class="ch1Name"></span></div>
+            <div class="col-2">VS</div>
+            <div class="col-5"><span class="ch2Name"></span></div>
+        </div>
+        <div class="row">
+                <div class="col-6">
+                    empty
+                </div>
+                <div class="col-3">
+                    <div class="row"><div class="col">CURRENT : <span class="ch1curr"></span></div></div>
+                    <div class="row"><div class="col">TARGET : <span class="ch1target"></span></div></div>
+                </div>
+                <div class="col-3">
+                    <h1 class="ch2Name"></h1>
+                </div>
+            </div>
+    </div> -->
+
+    <div class="container">
+        <div class="row " style="height:170px;">
+            <div class="col h-70"> </div>
+        </div>
+        <div class="row h-30">
+            <div class="col">  
+                <span class="ch1curr big"></span>( <span class="ch1percent"></span> )  
+                <h1 class="ch1Name"></h1>
+                CURRENT: <span class="ch1curr"></span><br>
+                TARGET: <span class="ch1target"></span><br>
+                LEFT: <span class="ch1left"></span><br>
+            </div>
+            <div class="col right">
+                ( <span class="ch2percent"></span> )<span class="ch2curr big"></span> 
+                <h1 class="ch2Name"></h1>
+                CURRENT: <span class="ch2curr"></span><br>
+                TARGET: <span class="ch2target"></span><br>
+                LEFT: <span class="ch2left"></span><br>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var div = $(".divCounts")
+        div.text("testtest")
+        function refreshCounts()
+        {
+            var chid1 = getUrlVars().chid1; //UCznibittbFHbwdDd5Fy01yQ
+            var chid2 = getUrlVars().chid2; //UCxs68-QZTKOMdUp5O8j1Qyw
+            var chids = chid1 + "%2C" + chid2;
+            $.getJSON( "https://www.googleapis.com/youtube/v3/channels?part=snippet%2Cstatistics&id="+ chids +"&key=AIzaSyApzPodGVtNZhheff8T587MnKUqsVLc6ko", function( data ) {
+            if(data) {
+                str = ""
+                str += data.items[0].snippet.title  + ":"
+                str += data.items[0].statistics.subscriberCount + "<br/>"
+
+                str += data.items[1].snippet.title  + ":"
+                str += data.items[1].statistics.subscriberCount + "<br/>"
+                ch1curr = data.items[0].statistics.subscriberCount;
+                ch2curr = data.items[1].statistics.subscriberCount;
+               
+                
+                ch1target = getUrlVars().target1; // 100000
+                ch2target = getUrlVars().target2; // 167000;
+                
+                ch1percent = ((ch1curr / ch1target)*100).toFixed(2) + "%";
+                ch2percent = ((ch2curr / ch2target)*100).toFixed(2)  + "%";
+                ch1left = ch1target - ch1curr;
+                ch2left = ch2target - ch2curr;
+
+                $(".ch1Name").html(data.items[0].snippet.title);
+                $(".ch1curr").html(ch1curr);
+                $(".ch2Name").html(data.items[1].snippet.title);
+                $(".ch2curr").html(ch2curr);
+                $(".ch1percent").html(ch1percent)
+                $(".ch2percent").html(ch2percent)
+                $(".ch1target").html(ch1target)
+                $(".ch2target").html(ch2target)
+                $(".ch1left").html(ch1left)
+                $(".ch2left").html(ch2left)
+            }
+        });
+        }
+        setInterval(refreshCounts,1000);
+        
+
+        function getUrlVars()
+        {
+            var vars = [], hash;
+            var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+            for(var i = 0; i < hashes.length; i++)
+            {
+                hash = hashes[i].split('=');
+                vars.push(hash[0]);
+                vars[hash[0]] = hash[1];
+            }
+            return vars;
+        }
+    </script>
+</body>
+</html>
