@@ -54,11 +54,11 @@
 
 .container
 {
-    background-image: url("http://nerdreactor.com/wp-content/uploads/2015/06/SFV_vs_screen-800x415.jpg") ; 
+     background-image: url("http://nerdreactor.com/wp-content/uploads/2015/06/SFV_vs_screen-800x415.jpg") ;  
     background-size: 100%;
     background-repeat: no-repeat;
     text-shadow: -5px 5px #1115;
-    color:white; 
+    /* color:white;  */
     height: 415px;
     width: 800px;
 }
@@ -69,6 +69,12 @@
 
 .big{
     font-size: 50pt;
+}
+
+img{
+    width:150px;
+    height: 150px;
+    
 }
 </style>
 </head>
@@ -128,7 +134,12 @@
 
     <div class="container">
         <div class="row " style="height:170px;">
-            <div class="col h-70"> </div>
+            <div class="col h-70"> 
+                <center><div class="ch1thumb"></div></center>
+            </div>
+            <div class="col h-70"> 
+                <center><div class="ch2thumb"></div></center>
+            </div>
         </div>
         <div class="row h-30">
             <div class="col">  
@@ -166,7 +177,8 @@
                 str += data.items[1].statistics.subscriberCount + "<br/>"
                 ch1curr = data.items[0].statistics.subscriberCount;
                 ch2curr = data.items[1].statistics.subscriberCount;
-               
+                ch1thumb = data.items[0].snippet.thumbnails.medium.url;
+                ch2thumb = data.items[1].snippet.thumbnails.medium.url;
                 
                 ch1target = getUrlVars().target1; // 100000
                 ch2target = getUrlVars().target2; // 167000;
@@ -180,12 +192,15 @@
                 $(".ch1curr").html(ch1curr);
                 $(".ch2Name").html(data.items[1].snippet.title);
                 $(".ch2curr").html(ch2curr);
-                $(".ch1percent").html(ch1percent)
-                $(".ch2percent").html(ch2percent)
-                $(".ch1target").html(ch1target)
-                $(".ch2target").html(ch2target)
-                $(".ch1left").html(ch1left)
-                $(".ch2left").html(ch2left)
+                $(".ch1percent").html(ch1percent);
+                $(".ch2percent").html(ch2percent);
+                $(".ch1target").html(ch1target);
+                $(".ch2target").html(ch2target);
+                $(".ch1left").html(ch1left);
+                $(".ch2left").html(ch2left);
+                $(".ch1thumb").html("<img src='" + ch1thumb + "' />");
+                $(".ch2thumb").html("<img src='" + ch2thumb + "' />");
+
             }
         });
         }
